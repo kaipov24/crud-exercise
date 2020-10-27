@@ -1,8 +1,14 @@
-const Employee = require("../employees.js")
+const Employee = require("../data/employees.js")
 
 
 exports.getAll = async (req, res) => {
   return res.json(Employee)
+}
+
+exports.create = async (req, res) => {
+  const employee = req.body
+  await employee.save()
+  return res.json({ status: "ok", data: employee })
 }
 // exports.getAll = async (req, res) => {
 //   const list = await Employee.find({})
@@ -21,11 +27,7 @@ exports.getAll = async (req, res) => {
 //   return res.json({ status: "ok", data: task })
 // }
 
-// exports.create = async (req, res) => {
-//   const task = new Employee(req.body)
-//   await task.save()
-//   return res.json({ status: "ok", data: task })
-// }
+
 
 // exports.delete = async (req, res) => {
 //   await Employee.delete({ id: req.params.id })

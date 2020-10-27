@@ -1,14 +1,25 @@
-import React from "react"
-import { useSelector } from "react-redux"
-import Body from "./body"
+import React, { useEffect } from "react"
+import { useSelector, useDispatch } from "react-redux"
+import List from "./list"
+import Header from "./header"
+// import Adding from "./adding"
+import { getEmployees } from "../redux/reducers/employees"
 
 const Main = () => {
-  const user = useSelector((s) => s.sample.name)
+  const dispatch = useDispatch()
+  const employees = useSelector((store) => store.employees.employees)
+
+  useEffect(() => {
+    dispatch(getEmployees())
+  }, [employees])
 
   return (
-    <div className="main">
-      <Body />
-      {user}
+    <div>
+      <Header />
+      <div className="main">
+        <List />
+        {/* <Adding /> */}
+      </div>
     </div>
   )
 }

@@ -1,9 +1,9 @@
 import { combineReducers } from "redux"
-import sample from "./sample"
+import employees from "./employees"
 
 const createRootReducer = () =>
   combineReducers({
-    sample,
+    employees,
   })
 
 export default createRootReducer
