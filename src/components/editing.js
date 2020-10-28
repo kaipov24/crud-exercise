@@ -16,11 +16,21 @@ const Editing = () => {
   const employee = useSelector(
     (store) => store.employees.employees.find((it) => +it.id === +id)
   )
-  const [name, setName] = useState("")
+  const [name, setName] = useState(`${employee?.name}`)
   const [birthdate, setBirthdate] = useState("")
   const [position, setPosition] = useState("")
   const [country, setCountry] = useState("")
   const [salary, setSalary] = useState("")
+
+  useEffect(() => {
+    setName(employee?.name)
+    setBirthdate(employee?.birthdate)
+    setPosition(employee?.position)
+    setCountry(employee?.country)
+    setSalary(employee?.salary)
+  }, [employee])
+
+  if (!employee) return "Not Found"
 
   return (
     <div>
@@ -35,7 +45,7 @@ const Editing = () => {
         <div className="form__inputs">
           <div className="form__inputs__inner">
             <label className="form__inputs__label" htmlFor="name">
-              Name {employee.name}
+              Name
             </label>
             <input
               id="name"
