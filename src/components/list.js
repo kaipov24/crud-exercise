@@ -31,7 +31,7 @@ const List = () => {
       </thead>
       {employees.map((it) => {
         return (
-          <div key={it.birthdate}>
+          <div key={it.id}>
             <tbody className="table">
               <tr className="table__row">
                 <td className="table__inner">
@@ -49,7 +49,9 @@ const List = () => {
                 </td>
 
                 <td className="table__inner">
-                  <button className="table__button">Edit</button>
+                  <Link to={`/${it.id}`}>
+                    <button className="table__button">Edit</button>
+                  </Link>
                 </td>
               </tr>
             </tbody>

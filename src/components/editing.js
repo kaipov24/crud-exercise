@@ -1,26 +1,35 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { CountryDropdown } from "react-country-region-selector"
 import { useSelector, useDispatch } from "react-redux"
+import { useParams } from "react-router-dom"
 import Header from "./header"
-import { addEmployee } from "../redux/reducers/employees"
+import { getEmployees, editEmployee } from "../redux/reducers/employees"
 
-const Adding = () => {
+const Editing = () => {
   const dispatch = useDispatch()
-  const employeesLength = useSelector((store) => store.employees.employees.length)
+  const { id } = useParams()
+
+  useEffect(() => {
+    dispatch(getEmployees())
+  }, [])
+
+  const employee = useSelector(
+    (store) => store.employees.employees
+  )
   const [name, setName] = useState("")
   const [birthdate, setBirthdate] = useState("")
   const [position, setPosition] = useState("")
   const [country, setCountry] = useState("")
   const [salary, setSalary] = useState("")
-  const id = employeesLength + 1
+
   return (
     <div>
       <Header />
       <div className="form">
         <div className="form__header">
-          <div className="form__header__title">Add a new employee</div>
+          <div className="form__header__title">Edit employee</div>
           <div className="form__header__subtitle">
-            Fill out the information of your new employee
+            Edit the information of your new employee
           </div>
         </div>
         <div className="form__inputs">
@@ -32,7 +41,6 @@ const Adding = () => {
               id="name"
               className="form__inputs__field"
               type="text"
-              placeholder="e.g. Jane Doe"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
@@ -47,7 +55,6 @@ const Adding = () => {
               id="birthdate"
               className="form__inputs__field"
               type="text"
-              placeholder="e.g. 17/02/1990"
               value={birthdate}
               onChange={(e) => setBirthdate(e.target.value)}
             />
@@ -62,7 +69,6 @@ const Adding = () => {
               id="position"
               className="form__inputs__field"
               type="text"
-              placeholder="e.g. Product Manager"
               value={position}
               onChange={(e) => setPosition(e.target.value)}
             />
@@ -75,7 +81,7 @@ const Adding = () => {
             </label>
             <CountryDropdown
               value={country}
-              onChange={(country) => setCountry(country)}
+              onChange={(val) => setCountry(val)}
               className="country__pick"
             />
             <div className="form__inputs__text">Where are they based?</div>
@@ -89,7 +95,6 @@ const Adding = () => {
               id="salary"
               className="form__inputs__field"
               type="text"
-              placeholder="e.g. 50000"
               value={salary}
               onChange={(e) => setSalary(e.target.value)}
             />
@@ -105,12 +110,11 @@ const Adding = () => {
             type="button"
             onClick={() => {
               dispatch(
-                addEmployee(name, birthdate, position, country, salary, id)
+                editEmployee(name, birthdate, position, country, salary, +id)
               )
             }}
           >
-            <a href="/">Add employee</a>
-
+            <a href="/">Save</a>
           </button>
         </div>
       </div>
@@ -118,6 +122,6 @@ const Adding = () => {
   )
 }
 
-React.memo(Adding)
+React.memo(Editing)
 
-export default Adding
+export default Editing

@@ -18,7 +18,6 @@ const Main = () => {
       <Header />
       <div className="main">
         <List />
-        {/* <Adding /> */}
       </div>
     </div>
   )

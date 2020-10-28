@@ -4,9 +4,7 @@ const employeeContoller = require("./controller/employee.controller")
 const router = express.Router()
 
 router.get("/", employeeContoller.getAll)
-// router.get("/:id", employeeContoller.getOne)
 router.post("/", employeeContoller.create)
-// router.patch("/:id", employeeContoller.update)
-// router.delete("/:id", employeeContoller.delete)
+router.patch("/:id", employeeContoller.update)
 
 module.exports = router
