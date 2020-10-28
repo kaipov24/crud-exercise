@@ -100,18 +100,19 @@ const Adding = () => {
           <button className="purple__button" type="submit">
             Cancel
           </button>
-          <button
-            className="purple__button"
-            type="button"
-            onClick={() => {
-              dispatch(
-                addEmployee(name, birthdate, position, country, salary, id)
-              )
-            }}
-          >
-            <a href="/">Add employee</a>
-
-          </button>
+          <a href="/">
+            <button
+              className="purple__button"
+              type="button"
+              onClick={() => {
+                dispatch(
+                  addEmployee(name, birthdate, position, country, salary, id)
+                )
+              }}
+            >
+              Add employee
+            </button>
+          </a>
         </div>
       </div>
     </div>

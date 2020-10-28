@@ -14,9 +14,16 @@ const List = () => {
           <div className="info__left__amount">{employees.length} employees</div>
         </div>
         <div className="info__button">
-          <div></div>
           <Link to="/add">
-            <button className="purple__button">Add employee</button>
+            <button className="purple__button__icon">
+              <div className="add__button">
+                <div className="add__button__profile">
+                  <div className="profile__icon__up"></div>
+                  <div className="profile__icon__down"></div>
+                </div>
+                <div>Add employee</div>
+              </div>
+            </button>
           </Link>
         </div>
       </div>

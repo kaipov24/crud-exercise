@@ -14,7 +14,7 @@ const Editing = () => {
   }, [])
 
   const employee = useSelector(
-    (store) => store.employees.employees
+    (store) => store.employees.employees.find((it) => +it.id === +id)
   )
   const [name, setName] = useState("")
   const [birthdate, setBirthdate] = useState("")
@@ -35,7 +35,7 @@ const Editing = () => {
         <div className="form__inputs">
           <div className="form__inputs__inner">
             <label className="form__inputs__label" htmlFor="name">
-              Name
+              Name {employee.name}
             </label>
             <input
               id="name"
@@ -105,17 +105,19 @@ const Editing = () => {
           <button className="purple__button" type="submit">
             Cancel
           </button>
-          <button
-            className="purple__button"
-            type="button"
-            onClick={() => {
-              dispatch(
-                editEmployee(name, birthdate, position, country, salary, +id)
-              )
-            }}
-          >
-            <a href="/">Save</a>
-          </button>
+          <a href="/">
+            <button
+              className="purple__button"
+              type="button"
+              onClick={() => {
+                dispatch(
+                  editEmployee(name, birthdate, position, country, salary, +id)
+                )
+              }}
+            >
+              Save
+            </button>
+          </a>
         </div>
       </div>
     </div>

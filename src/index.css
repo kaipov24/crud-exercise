@@ -24,6 +24,7 @@ a{
   text-decoration: none;
   color:  #624DE3;
 }
+
 h1, h2, h3, h4, h5, h6, td {
     margin: 0;
 }
@@ -113,6 +114,7 @@ p {
   background: #ffffff;
   cursor: pointer;
   transition: all .2s linear;
+  outline: none;
 }
 .table__button:hover {
   background: #624DE3;
@@ -153,6 +155,20 @@ p {
   line-height: 16px;
   color: #778CA3;
 }
+.purple__button__icon {
+  background: #624DE3;
+  box-shadow: 0px 6px 12px rgba(98, 77, 227, 0.3);
+  border-radius: 50px;
+  outline: none;
+  border: none;
+  color: #ffffff;
+  padding: 10px 23px 10px 20px;
+  font-weight: 500;
+  line-height: 19px;
+  text-align: center;
+  cursor: pointer;
+
+}
 .purple__button {
   background: #ffffff;
   box-shadow: 0px 6px 12px rgba(98, 77, 227, 0.3);
@@ -166,7 +182,6 @@ p {
   text-align: center;
   cursor: pointer;
   transition: all .2s linear;
-
 }
 .purple__button:hover {
   background: #624DE3;
@@ -175,6 +190,35 @@ p {
 
 .purple__button:last-child {
   margin-left: 10px;
+}
+.add__button {
+  display: flex;
+  align-items: center;
+
+}
+
+.add__button__profile {
+  margin-right: 10px;
+}
+.profile__icon__up {
+  height: 8px;
+  width: 7px;
+  border: 1px solid #FFFFFF;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  margin-bottom: 1px;
+}
+
+.profile__icon__down {
+  height: 6px;
+  width: 11px;
+  border: 1px solid #FFFFFF;
+  border-radius: 91% 84% 0 0 / 75% 75% 0 0;
+  overflow: hidden;
+  border-bottom: 0;
+
 }
 
 /*Header*/
@@ -247,7 +291,12 @@ p {
   margin: auto;
   margin-bottom: 82px;
 }
-
+.form__inputs__inner:focus-within label{
+  color: #624DE3;
+}
+.form__inputs__inner:focus-within input{
+  border-color: #624DE3;
+}
 .form__inputs__inner {
   display: flex;
   flex-direction: column;
@@ -272,6 +321,8 @@ p {
   color: #778CA3;
   margin-bottom: 4px;
 }
+
+
 .form__inputs__text {
   font-weight: normal;
   font-size: 13px;
