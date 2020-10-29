@@ -2,7 +2,6 @@ import React, { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import List from "./list"
 import Header from "./header"
-// import Adding from "./adding"
 import { getEmployees } from "../redux/reducers/employees"
 
 const Main = () => {

@@ -13,10 +13,10 @@ const Editing = () => {
     dispatch(getEmployees())
   }, [])
 
-  const employee = useSelector(
-    (store) => store.employees.employees.find((it) => +it.id === +id)
+  const employee = useSelector((store) =>
+    store.employees.employees.find((it) => +it.id === +id)
   )
-  const [name, setName] = useState(`${employee?.name}`)
+  const [name, setName] = useState("")
   const [birthdate, setBirthdate] = useState("")
   const [position, setPosition] = useState("")
   const [country, setCountry] = useState("")
@@ -29,8 +29,6 @@ const Editing = () => {
     setCountry(employee?.country)
     setSalary(employee?.salary)
   }, [employee])
-
-  if (!employee) return "Not Found"
 
   return (
     <div>

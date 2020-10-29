@@ -8,6 +8,9 @@ const initialState = {
   employees: [],
 }
 
+const id = initialState.employees.length + 1
+
+
 export default (state = initialState, action) => {
   switch (action.type) {
     case GET_EMPLOYEES:

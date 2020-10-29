@@ -289,7 +289,7 @@ p {
   flex-direction: column;
   width: 60%;
   margin: auto;
-  margin-bottom: 82px;
+  margin-bottom: 52px;
 }
 .form__inputs__inner:focus-within label{
   color: #624DE3;
@@ -334,8 +334,10 @@ p {
 .form__buttons {
   display: flex;
   justify-content: center;
-
+  flex-direction: column;
+  align-items: center;
 }
+
 .country__pick {
   color: #525F7F;
   border: none;
