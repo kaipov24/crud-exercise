@@ -1,7 +1,11 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useCallback } from "react"
 import { CountryDropdown } from "react-country-region-selector"
 import { useSelector, useDispatch } from "react-redux"
 import { useParams } from "react-router-dom"
+import { Link } from "react-router-dom"
+
+import schema from "../common/validation-scheme"
+
 import Header from "./header"
 import { getEmployees, editEmployee } from "../redux/reducers/employees"
 
@@ -11,7 +15,7 @@ const Editing = () => {
 
   useEffect(() => {
     dispatch(getEmployees())
-  }, [])
+  }, [dispatch])
 
   const employee = useSelector((store) =>
     store.employees.employees.find((it) => +it.id === +id)
@@ -21,14 +25,33 @@ const Editing = () => {
   const [position, setPosition] = useState("")
   const [country, setCountry] = useState("")
   const [salary, setSalary] = useState("")
+  const [errs, setErrs] = useState({})
 
   useEffect(() => {
     setName(employee?.name)
     setBirthdate(employee?.birthdate)
     setPosition(employee?.position)
     setCountry(employee?.country)
-    setSalary(employee?.salary)
+    setSalary(employee?.salary )
   }, [employee])
+
+  const clickSave = useCallback(() => {
+    const dataObj = { name, birthdate, position, country, salary, id: +id }
+    const { error } = schema.validate(dataObj, {
+      abortEarly: false,
+      allowUnknown: true,
+      stripUnknown: true,
+    })
+    if (!error?.details?.length) {
+      dispatch(editEmployee(dataObj))
+    } else {
+      setErrs(
+        error.details.reduce((acc, rec) => {
+          return { ...acc, [rec.path]: rec }
+        }, {})
+      )
+    }
+  }, [name, birthdate, position, country, salary, id, dispatch])
 
   return (
     <div>
@@ -37,7 +60,7 @@ const Editing = () => {
         <div className="form__header">
           <div className="form__header__title">Edit employee</div>
           <div className="form__header__subtitle">
-            Edit the information of your new employee
+            Edit the information of your employee
           </div>
         </div>
         <div className="form__inputs">
@@ -47,12 +70,19 @@ const Editing = () => {
             </label>
             <input
               id="name"
-              className="form__inputs__field"
+              data-testid="name"
+              className="form__inputs__field form__inputs__field__edit"
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
-            <div className="form__inputs__text">First and last names</div>
+            {!!errs["name"]?.message ? (
+              <div className="form__inputs__text form__inputs__text__red">
+                {errs["name"].message}
+              </div>
+            ) : (
+              <div className="form__inputs__text">First and last names</div>
+            )}
           </div>
 
           <div className="form__inputs__inner">
@@ -61,12 +91,19 @@ const Editing = () => {
             </label>
             <input
               id="birthdate"
-              className="form__inputs__field"
+              data-testid="birthdate"
+              className="form__inputs__field form__inputs__field__edit"
               type="text"
               value={birthdate}
               onChange={(e) => setBirthdate(e.target.value)}
             />
-            <div className="form__inputs__text">DD/MM/YYYY</div>
+            {!!errs["birthdate"]?.message ? (
+              <div className="form__inputs__text form__inputs__text__red">
+                {errs["birthdate"].message}
+              </div>
+            ) : (
+              <div className="form__inputs__text">DD/MM/YYYY</div>
+            )}
           </div>
 
           <div className="form__inputs__inner">
@@ -75,12 +112,19 @@ const Editing = () => {
             </label>
             <input
               id="position"
-              className="form__inputs__field"
+              className="form__inputs__field form__inputs__field__edit"
               type="text"
+              data-testid="role"
               value={position}
               onChange={(e) => setPosition(e.target.value)}
             />
-            <div className="form__inputs__text">What is their role?</div>
+            {!!errs["position"]?.message ? (
+              <div className="form__inputs__text form__inputs__text__red">
+                {errs["position"].message}
+              </div>
+            ) : (
+              <div className="form__inputs__text">What is their role?</div>
+            )}
           </div>
 
           <div className="form__inputs__inner">
@@ -88,11 +132,18 @@ const Editing = () => {
               Country
             </label>
             <CountryDropdown
+              data-testid="country-select adding"
               value={country}
               onChange={(val) => setCountry(val)}
-              className="country__pick"
+              className="country__pick country__pick__edit"
             />
-            <div className="form__inputs__text">Where are they based?</div>
+            {!!errs["country"]?.message ? (
+              <div className="form__inputs__text form__inputs__text__red">
+                {errs["country"].message}
+              </div>
+            ) : (
+              <div className="form__inputs__text">Where are they based?</div>
+            )}
           </div>
 
           <div className="form__inputs__inner">
@@ -101,37 +152,37 @@ const Editing = () => {
             </label>
             <input
               id="salary"
-              className="form__inputs__field"
+              className="form__inputs__field form__inputs__field__edit"
               type="text"
+              data-testid="salary"
               value={salary}
               onChange={(e) => setSalary(e.target.value)}
             />
-            <div className="form__inputs__text">Gross yearly salary</div>
+            {!!errs["salary"]?.message ? (
+              <div className="form__inputs__text form__inputs__text__red">
+                {errs["salary"].message}
+              </div>
+            ) : (
+              <div className="form__inputs__text ">Gross yearly salary</div>
+            )}
           </div>
         </div>
         <div className="form__buttons">
-          <button className="purple__button" type="submit">
+          <Link className="purple__button" to="/" data-testid="cancel-button">
             Cancel
+          </Link>
+          <button
+            data-testid="edit-button"
+            className="purple__button"
+            type="button"
+            onClick={clickSave}
+          >
+            Save
           </button>
-          <a href="/">
-            <button
-              className="purple__button"
-              type="button"
-              onClick={() => {
-                dispatch(
-                  editEmployee(name, birthdate, position, country, salary, +id)
-                )
-              }}
-            >
-              Save
-            </button>
-          </a>
         </div>
       </div>
     </div>
   )
 }
 
-React.memo(Editing)
-
-export default Editing
+export default React.memo(Editing)

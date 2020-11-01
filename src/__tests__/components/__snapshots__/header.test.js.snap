@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="header"
+>
+  <div
+    className="header__inner"
+  >
+    <div
+      className="header__ellipse"
+    />
+    <div
+      className="header__info"
+    >
+      <div
+        className="header__info__name"
+      >
+        Julie Howard
+      </div>
+      <div
+        className="header__info__position"
+      >
+        Admin
+      </div>
+    </div>
+  </div>
+</div>
+`;

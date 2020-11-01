@@ -3,7 +3,7 @@ body {
   padding: 0;
   font-family: 'Inter', sans-serif;
   font-size: 16px;
-  color: #F4F7FC;
+  color: #00234B;
   background: #E5E5E5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -36,8 +36,10 @@ p {
 
 }
 /*Table*/
-
 .table {
+  width: 100% }
+
+.table__row {
   background: white;
   padding: 32px 26px ;
   background: #FFFFFF;
@@ -65,18 +67,19 @@ p {
 .table__headers__inner  {
   width: 20%;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   font-weight: 600;
   font-size: 12px;
   line-height: 20px;
   text-transform: uppercase;
   color: #778CA3;
 }
-.table__row{
+/* .table__row{
   width: 100%;
   display: flex;
   align-items: center;
-}
+  margin-bottom: 20px;
+} */
 
 .table__inner {
   font-weight: normal;
@@ -179,6 +182,7 @@ p {
   padding: 10px 23px 10px 20px;
   font-weight: 500;
   line-height: 19px;
+  font-size: 16px;
   text-align: center;
   cursor: pointer;
   transition: all .2s linear;
@@ -291,6 +295,7 @@ p {
   margin: auto;
   margin-bottom: 52px;
 }
+
 .form__inputs__inner:focus-within label{
   color: #624DE3;
 }
@@ -300,6 +305,14 @@ p {
 .form__inputs__inner {
   display: flex;
   flex-direction: column;
+}
+
+.form__inputs__label {
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 16px;
+  color: #778CA3;
+  margin-bottom: 4px;
 }
 .form__inputs__field {
   border: none;
@@ -311,17 +324,10 @@ p {
   line-height: 24px;
   color: #525F7F;
 }
-.form__inputs__field__country {
-  outline: none;
-}
-.form__inputs__label {
-  font-weight: normal;
-  font-size: 13px;
-  line-height: 16px;
-  color: #778CA3;
-  margin-bottom: 4px;
-}
 
+.form__inputs__field__edit {
+  color: #00234B;
+}
 
 .form__inputs__text {
   font-weight: normal;
@@ -331,22 +337,30 @@ p {
   margin-bottom: 30px;
   padding-top: 8px;
 }
+.form__inputs__text__red {
+  color: red;
+}
 .form__buttons {
   display: flex;
   justify-content: center;
-  flex-direction: column;
+  /* flex-direction: column; */
   align-items: center;
 }
 
 .country__pick {
-  color: #525F7F;
   border: none;
   border-bottom: 1px solid #CED5DB;
   background-color: #fff;
   padding-top: 4px;
   padding-bottom: 8px;
   outline: none;
+  font-style: normal;
   font-weight: normal;
   font-size: 20px;
   line-height: 24px;
+  color: #525F7F;
+  margin-left: -1px;
+}
+.country__pick__edit {
+  color: #00234B;
 }

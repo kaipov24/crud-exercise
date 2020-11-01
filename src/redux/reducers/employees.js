@@ -1,15 +1,14 @@
 import axios from "axios"
+import history from "../../history"
+import {
+  GET_EMPLOYEES,
+  ADD_EMPLOYEE,
+  EDIT_EMPLOYEE,
+} from "../actions/employees"
 
-const GET_EMPLOYEES = "GET_EMPLOYEES"
-const ADD_EMPLOYEE = "ADD_EMPLOYEE"
-const EDIT_EMPLOYEE = "EDIT_EMPLOYEE"
-
-const initialState = {
+export const initialState = {
   employees: [],
 }
-
-const id = initialState.employees.length + 1
-
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -25,15 +24,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         employees: [
-          ...state.employees,
-          {
-            name: action.name,
-            birthdate: action.birthdate,
-            position: action.position,
-            country: action.country,
-            salary: action.salary,
-            id: action.id,
-          },
+          ...state.employees.map((it) =>
+            it.id !== action.employee.id
+              ? it
+              : { ...it, ...action.employee, id: +action.employee.id }
+          ),
         ],
       }
     }
@@ -43,63 +38,47 @@ export default (state = initialState, action) => {
 }
 
 export function getEmployees() {
-  return function (dispatch) {
-    axios(`/api/v1/employees`).then(({ data }) => {
+  return (dispatch) =>
+    axios.get(`/api/v1/employees`).then(({ data }) => {
       dispatch({ type: GET_EMPLOYEES, employees: data })
     })
-  }
 }
 
-export function addEmployee(name, birthdate, position, country, salary, id) {
-  return (dispatch) => {
-    axios({
-      method: "post",
-      url: `/api/v1/employees`,
-      data: {
-        name,
-        birthdate,
-        position,
-        country,
-        salary,
-        id
-      },
-    }).then((data) => {
+export function addEmployee({
+  name,
+  birthdate,
+  position,
+  country,
+  salary,
+  id,
+}) {
+  const args = { name, birthdate, position, country, salary, id }
+  return (dispatch) =>
+    axios.post(`/api/v1/employees`, args).then(({ data }) => {
       dispatch({
         type: ADD_EMPLOYEE,
-        name: data.name,
-        birthdate: data.birthdate,
-        position: data.position,
-        country: data.country,
-        salary: data.salary,
-        id: data.id
+        employee: data.employee,
       })
+      history.push("/")
     })
-  }
 }
 
-export function editEmployee(name, birthdate, position, country, salary, id) {
-  return (dispatch) => {
-    axios({
-      method: "patch",
-      url: `/api/v1/employees/${id}`,
-      data: {
-        name,
-        birthdate,
-        position,
-        country,
-        salary,
-        id: +id,
-      },
-    }).then((data) => {
+export function editEmployee({
+  name,
+  birthdate,
+  position,
+  country,
+  salary,
+  id,
+}) {
+  const args = { name, birthdate, position, country, salary: salary, id }
+
+  return (dispatch) =>
+    axios.patch(`/api/v1/employees/${id}`, args).then(({ data }) => {
       dispatch({
         type: EDIT_EMPLOYEE,
-        name: data.name,
-        birthdate: data.birthdate,
-        position: data.position,
-        country: data.country,
-        salary: data.salary,
-        id: +data.id,
+        employee: data.employee,
       })
+      history.push("/")
     })
-  }
 }
