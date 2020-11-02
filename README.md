@@ -2,9 +2,9 @@
 
 ## Quick start
 
-1. Clone this repo using:
+1. Clone this repo using(ssh):
   ```shell
-  $ git clone
+  $ git clone git@github.com:kaipov24/crud-exercise.git .
   ```
 
 2. To install dependencies and clean the git repo run:
@@ -26,7 +26,9 @@
 
   *To stop project, use combination of*:
 
-  ### `ctrl + c`
+  ```shell
+  ctrl + c
+  ```
 
 4. Run tests:
 
@@ -43,4 +45,6 @@
 
   *To stop tests, use combination of*:
 
-  ### `ctrl + c`
+  ```shell
+  ctrl + c
+  ```

@@ -26,15 +26,15 @@ const Editing = () => {
   const [salary, setSalary] = useState("")
   const [errs, setErrs] = useState({})
 
-
   useEffect(() => {
-    setName(employee?.name)
-    setBirthdate(employee?.birthdate)
-    setPosition(employee?.position)
-    setCountry(employee?.country)
-    setSalary(employee?.salary)
+    if (typeof employee !== "undefined") {
+      setName(employee?.name)
+      setBirthdate(employee?.birthdate)
+      setPosition(employee?.position)
+      setCountry(employee?.country)
+      setSalary(employee?.salary)
+    }
   }, [employee])
-
 
   const clickSave = useCallback(() => {
     const dataObj = { name, birthdate, position, country, salary, id: +id }
@@ -135,12 +135,12 @@ const Editing = () => {
             <select
               id="country"
               data-testid="country-select"
-              value={country}
               onChange={(e) => setCountry(e.target.value)}
               className="country__pick country__pick__edit"
+              value={country}
             >
               {countries.map((it) => {
-                return <option key={it.value} value={it.text}>{it.text}</option>
+                return <option key={it.value}>{it.text}</option>
               })}
             </select>
             {!!errs["country"]?.message ? (

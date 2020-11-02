@@ -26,7 +26,6 @@ const Adding = () => {
     if (!error?.details?.length) {
       dispatch(addEmployee(dataObj))
     } else {
-      debugger
       setErrs(
         error.details.reduce((acc, rec) => {
           return { ...acc, [rec.path]: rec }
@@ -119,12 +118,16 @@ const Adding = () => {
             <select
               id="country"
               data-testid="country-select"
-              value={country}
               onChange={(e) => setCountry(e.target.value)}
               className="country__pick"
+              value={country}
             >
               {countries.map((it) => {
-                return <option key={it.value} value={it.text}>{it.text}</option>
+                return (
+                  <option key={it.value}>
+                    {it.text}
+                  </option>
+                )
               })}
             </select>
             {!!errs["country"]?.message ? (

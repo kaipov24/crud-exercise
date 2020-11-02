@@ -31,7 +31,6 @@ function validateRequest(req, next, schema) {
   }
 }
 
-
 module.exports = {
   validateUserBody
 }

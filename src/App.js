@@ -1,8 +1,5 @@
-
-
 import React from "react"
 import { ConnectedRouter } from "connected-react-router"
-
 import { Switch, Route } from "react-router-dom"
 import history from "./history"
 import Main from "./components/main.js"
