@@ -324,6 +324,7 @@ p {
   font-size: 20px;
   line-height: 24px;
   color: #525F7F;
+  margin-left: -3px;
 }
 .form__inputs__field::placeholder {
   color: #525F7F;;
@@ -363,7 +364,7 @@ p {
   font-size: 20px;
   line-height: 24px;
   color: #525F7F;
-  margin-left: -1px;
+  margin-left: -4.5px;
 }
 .country__pick__edit {
   color: #00234B;
