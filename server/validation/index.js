@@ -2,12 +2,10 @@ const Joi = require("joi")
 
 const schema = Joi.object({
   name: Joi.string().required(),
-  birthdate: Joi.string()
-    .regex(/^[\d{2}/\d{2}/\d{4}/]*$/)
-    .required(),
-  position: Joi.string().min(3).max(30).required(),
-  country: Joi.string().min(3).max(30).required(),
-  salary: Joi.number().required(),
+  birthdate: Joi.string().required(),
+  position: Joi.string().required(),
+  country: Joi.string().required(),
+  salary: Joi.string().required()
 })
 
 function validateUserBody(req, res, next) {

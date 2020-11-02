@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux"
 import schema from "../common/validation-scheme"
 import Header from "./header"
 import { addEmployee } from "../redux/reducers/employees"
-import { CountryDropdown } from "react-country-region-selector"
+import countries from "../common/countries"
 
 const Adding = () => {
   const dispatch = useDispatch()
@@ -22,12 +22,11 @@ const Adding = () => {
       abortEarly: false,
       allowUnknown: true,
       stripUnknown: true,
-
     })
     if (!error?.details?.length) {
       dispatch(addEmployee(dataObj))
     } else {
-      debugger;
+      debugger
       setErrs(
         error.details.reduce((acc, rec) => {
           return { ...acc, [rec.path]: rec }
@@ -117,12 +116,17 @@ const Adding = () => {
             <label className="form__inputs__label" htmlFor="country">
               Country
             </label>
-            <CountryDropdown
+            <select
+              id="country"
               data-testid="country-select"
               value={country}
-              onChange={(val) => setCountry(val)}
+              onChange={(e) => setCountry(e.target.value)}
               className="country__pick"
-            />
+            >
+              {countries.map((it) => {
+                return <option value={it.text}>{it.text}</option>
+              })}
+            </select>
             {!!errs["country"]?.message ? (
               <div className="form__inputs__text form__inputs__text__red">
                 {errs["country"].message}
@@ -141,7 +145,7 @@ const Adding = () => {
               type="text"
               data-testid="salary"
               value={salary}
-              onChange={(e) => setSalary(e.target.value + "")}
+              onChange={(e) => setSalary(e.target.value)}
               placeholder="e.g. 50000"
             />
             {!!errs["salary"]?.message ? (
@@ -179,7 +183,5 @@ const Adding = () => {
     </div>
   )
 }
-
-
 
 export default React.memo(Adding)

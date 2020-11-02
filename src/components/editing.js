@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react"
-import { CountryDropdown } from "react-country-region-selector"
 import { useSelector, useDispatch } from "react-redux"
 import { useParams } from "react-router-dom"
 import { Link } from "react-router-dom"
-
 import schema from "../common/validation-scheme"
-
 import Header from "./header"
 import { getEmployees, editEmployee } from "../redux/reducers/employees"
+import countries from "../common/countries"
 
 const Editing = () => {
   const dispatch = useDispatch()
@@ -131,12 +129,17 @@ const Editing = () => {
             <label className="form__inputs__label" htmlFor="country">
               Country
             </label>
-            <CountryDropdown
-              data-testid="country-select adding"
+            <select
+              id="country"
+              data-testid="country-select"
               value={country}
-              onChange={(val) => setCountry(val)}
+              onChange={(e) => setCountry(e.target.value)}
               className="country__pick country__pick__edit"
-            />
+            >
+              {countries.map((it) => {
+                return <option value={it.text}>{it.text}</option>
+              })}
+            </select>
             {!!errs["country"]?.message ? (
               <div className="form__inputs__text form__inputs__text__red">
                 {errs["country"].message}
@@ -168,7 +171,12 @@ const Editing = () => {
           </div>
         </div>
         <div className="form__buttons">
-          <Link className="purple__button" to="/" data-testid="cancel-button">
+          <Link
+            style={{ fontWeight: "400" }}
+            className="purple__button"
+            to="/"
+            data-testid="cancel-button"
+          >
             Cancel
           </Link>
           <button
