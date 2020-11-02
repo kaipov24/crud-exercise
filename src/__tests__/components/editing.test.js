@@ -30,17 +30,24 @@ jest.mock("react-redux", () => ({
   useDispatch: () => mockDispatch,
 }))
 
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useParams: () => ({
+    id: 9,
+  }),
+}))
 const keyDownEvent = {
   key: "ArrowDown",
 }
 
-const USER_TO_UPDATE = {
-  country: "Poland",
-  salary: "77777",
-  position: "Traitor",
-  birthdate: "01/01/1852",
-  name: "Ramsey Bolton",
-}
+  const USER_TO_UPDATE = {
+    country: "Poland",
+    salary: "77777",
+    position: "Traitor",
+    birthdate: "01/01/1852",
+    name: "Ramsey Bolton",
+    id: 9
+  }
 
 export async function selectOption(container, optionText) {
   fireEvent.keyDown(container, keyDownEvent)
@@ -142,9 +149,10 @@ describe("Editing page", () => {
   })
 
   it("should call dispatch on edit button", async () => {
+    const mockedDispatch = jest.fn()
     let mockFn
     editEmployee.mockImplementation((args) => Promise.resolve(args))
-    useDispatch.mockImplementation(() => {
+    mockedDispatch(() => {
       mockFn = jest.fn((arg) =>
         Promise.resolve([{ id: 1, username: "foo", arg }])
       )
