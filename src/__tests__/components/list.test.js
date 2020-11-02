@@ -134,21 +134,4 @@ describe("List", () => {
 
       })
     })
-
-
-
-  // it("should not render if query is empty", () => {
-  //   const localMockState = {
-  //     ...mockAppState,
-  //     config: {
-  //       ...mockShoppingState.config,
-  //       query: "",
-  //     },
-  //   }
-  //   useSelector.mockImplementation((callback) => {
-  //     return callback(localMockState)
-  //   })
-  //   const { queryByTestId } = render(<List />)
-  //   expect(queryByTestId("query_testId")).toBeNull()
-  // })
 })

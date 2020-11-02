@@ -124,7 +124,7 @@ const Adding = () => {
               className="country__pick"
             >
               {countries.map((it) => {
-                return <option value={it.text}>{it.text}</option>
+                return <option key={it.value} value={it.text}>{it.text}</option>
               })}
             </select>
             {!!errs["country"]?.message ? (
