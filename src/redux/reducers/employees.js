@@ -9,6 +9,9 @@ import {
 export const initialState = {
   employees: [],
 }
+export const testInitialState = {
+  employees: [],
+}
 
 export default (state = initialState, action) => {
   switch (action.type) {

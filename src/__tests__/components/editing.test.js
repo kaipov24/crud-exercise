@@ -12,11 +12,12 @@ import { Provider } from "react-redux"
 import thunk from "redux-thunk"
 
 import configureStore from "redux-mock-store"
-import { initialState, editEmployee } from "../../redux/reducers/employees"
+import { testInitialState, editEmployee } from "../../redux/reducers/employees"
 import Editing from "../../components/editing"
 
 const middlewares = [thunk]
 const mockStore = configureStore(middlewares)
+const mockDispatch = jest.fn()
 
 jest.mock("../../redux/reducers/employees", () => ({
   ...jest.requireActual("../../redux/reducers/employees"),
@@ -26,7 +27,7 @@ jest.mock("../../redux/reducers/employees", () => ({
 jest.mock("react-redux", () => ({
   ...jest.requireActual("react-redux"),
   useSelector: jest.fn(),
-  useDispatch: jest.fn(),
+  useDispatch: () => mockDispatch,
 }))
 
 const keyDownEvent = {
@@ -52,9 +53,10 @@ export async function selectOption(container, optionText) {
 
 describe("Editing page", () => {
   it("should show error on validation name", () => {
+    const mockedDispatch = jest.fn()
     const { getByTestId, getByText } = render(
       <MemoryRouter>
-        <Provider store={mockStore(initialState)}>
+        <Provider store={mockStore(testInitialState)}>
           <Editing />
         </Provider>
       </MemoryRouter>
@@ -72,7 +74,7 @@ describe("Editing page", () => {
   it("should show error on validation Birthdate", () => {
     const { getByTestId, getByText } = render(
       <MemoryRouter>
-        <Provider store={mockStore(initialState)}>
+        <Provider store={mockStore(testInitialState)}>
           <Editing />
         </Provider>
       </MemoryRouter>
@@ -90,7 +92,7 @@ describe("Editing page", () => {
   it("should show error on validation Job Title", () => {
     const { getByTestId, getByText } = render(
       <MemoryRouter>
-        <Provider store={mockStore(initialState)}>
+        <Provider store={mockStore(testInitialState)}>
           <Editing />
         </Provider>
       </MemoryRouter>
@@ -108,7 +110,7 @@ describe("Editing page", () => {
   it("should show error on validation Salary", () => {
     const { getByTestId, getByText } = render(
       <MemoryRouter>
-        <Provider store={mockStore(initialState)}>
+        <Provider store={mockStore(testInitialState)}>
           <Editing />
         </Provider>
       </MemoryRouter>
@@ -127,7 +129,7 @@ describe("Editing page", () => {
   it("should properly select country", async () => {
     const { getByTestId, getByText, findByText } = render(
       <MemoryRouter>
-        <Provider store={mockStore(initialState)}>
+        <Provider store={mockStore(testInitialState)}>
           <Editing />
         </Provider>
       </MemoryRouter>
@@ -141,7 +143,7 @@ describe("Editing page", () => {
 
   it("should call dispatch on edit button", async () => {
     let mockFn
-    addEmployee.mockImplementation((args) => Promise.resolve(args))
+    editEmployee.mockImplementation((args) => Promise.resolve(args))
     useDispatch.mockImplementation(() => {
       mockFn = jest.fn((arg) =>
         Promise.resolve([{ id: 1, username: "foo", arg }])
@@ -152,7 +154,7 @@ describe("Editing page", () => {
 
     const { getByTestId, getByText, findByText } = render(
       <MemoryRouter>
-        <Provider store={mockStore(initialState)}>
+        <Provider store={mockStore(testInitialState)}>
           <Editing />
         </Provider>
       </MemoryRouter>
