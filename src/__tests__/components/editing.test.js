@@ -69,7 +69,7 @@ describe("Editing page", () => {
         cancelable: true,
       })
     )
-    expect(getByText(`"name" is not allowed to be empty`)).toBeVisible()
+    expect(getByText(`"name" is required`)).toBeVisible()
   })
   it("should show error on validation Birthdate", () => {
     const { getByTestId, getByText } = render(
@@ -87,7 +87,7 @@ describe("Editing page", () => {
         cancelable: true,
       })
     )
-    expect(getByText(`"birthdate" is not allowed to be empty`)).toBeVisible()
+    expect(getByText(`"birthdate" is required`)).toBeVisible()
   })
   it("should show error on validation Job Title", () => {
     const { getByTestId, getByText } = render(
@@ -105,7 +105,7 @@ describe("Editing page", () => {
         cancelable: true,
       })
     )
-    expect(getByText(`"position" is not allowed to be empty`)).toBeVisible()
+    expect(getByText(`"position" is required`)).toBeVisible()
   })
   it("should show error on validation Salary", () => {
     const { getByTestId, getByText } = render(
@@ -123,7 +123,7 @@ describe("Editing page", () => {
         cancelable: true,
       })
     )
-    expect(getByText(`"salary" is not allowed to be empty`)).toBeVisible()
+    expect(getByText(`"salary" is required`)).toBeVisible()
   })
 
   it("should properly select country", async () => {
