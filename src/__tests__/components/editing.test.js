@@ -121,25 +121,25 @@ describe("Editing page", () => {
         cancelable: true,
       })
     )
-    expect(getByText(`"birthdate" is not allowed to be empty`)).toBeVisible()
+    expect(getByText(`"salary" is not allowed to be empty`)).toBeVisible()
   })
 
   it("should properly select country", async () => {
     const { getByTestId, getByText, findByText } = render(
       <MemoryRouter>
         <Provider store={mockStore(initialState)}>
-          <Adding />
+          <Editing />
         </Provider>
       </MemoryRouter>
     )
     const countrySelect = getByTestId("country-select")
 
-    await selectOption(countrySelect, "Monaco")
-    const option = getByText("Monaco")
+    await selectOption(countrySelect, "Poland")
+    const option = getByText("Poland")
     expect(option.selected).toBe(true)
   })
 
-  it("should call dispatch on add button", async () => {
+  it("should call dispatch on edit button", async () => {
     let mockFn
     addEmployee.mockImplementation((args) => Promise.resolve(args))
     useDispatch.mockImplementation(() => {
@@ -153,30 +153,30 @@ describe("Editing page", () => {
     const { getByTestId, getByText, findByText } = render(
       <MemoryRouter>
         <Provider store={mockStore(initialState)}>
-          <Adding />
+          <Editing />
         </Provider>
       </MemoryRouter>
     )
 
     fireEvent.change(getByTestId("country-select"), {
-      target: { value: USER_TO_CREATE.country },
+      target: { value: USER_TO_UPDATE.country },
     })
 
     fireEvent.change(getByTestId("salary"), {
-      target: { value: USER_TO_CREATE.salary },
+      target: { value: USER_TO_UPDATE.salary },
     })
     fireEvent.change(getByTestId("role"), {
-      target: { value: USER_TO_CREATE.position },
+      target: { value: USER_TO_UPDATE.position },
     })
     fireEvent.change(getByTestId("birthdate"), {
-      target: { value: USER_TO_CREATE.birthdate },
+      target: { value: USER_TO_UPDATE.birthdate },
     })
     fireEvent.change(getByTestId("name"), {
-      target: { value: USER_TO_CREATE.name },
+      target: { value: USER_TO_UPDATE.name },
     })
 
-    fireEvent.click(getByTestId("add-button"))
+    fireEvent.click(getByTestId("edit-button"))
 
-    expect(addEmployee).toHaveBeenCalledWith(USER_TO_CREATE)
+    expect(editEmployee).toHaveBeenCalledWith(USER_TO_UPDATE)
   })
 })

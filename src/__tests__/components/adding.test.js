@@ -130,7 +130,7 @@ describe("Adding page", () => {
         cancelable: true,
       })
     )
-    expect(getByText(`"birthdate" is not allowed to be empty`)).toBeVisible()
+    expect(getByText(`"salary" is not allowed to be empty`)).toBeVisible()
   })
 
 
